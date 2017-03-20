@@ -1,0 +1,8 @@
+READ ME
+
+The server program needs to run first. 
+There is no input error checking, so type the correct spelling “download”, then hit Enter.
+If you want to test again, make sure the console is closed before running. 
+If there is an error when you test it, just simply change the port number and run it again. The error will disappear. 
+
+Enjoy it!
