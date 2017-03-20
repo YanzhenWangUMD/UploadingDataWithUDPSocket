@@ -1,0 +1,24 @@
+Problem Statement:
+Using UDP and TCP socket to build a programming that can download file. The command line and description is transferred from the 
+client through TCP socket, however, the content from a file is transferred through UDP socket. Since UDP doesn’t provide reliable
+data transfer, so the program will control data transfer using TCP –like server on top of it. 
+
+Design Report:
+When the command of download is issued, the client sends a message through TCP socket with port number. Once the server site 
+receives this command, it will implement the download process. Since this program provide the reliable transfer, so all the 
+data is being send associate with a sequence number. When the client receives the data, it will send back to the server only
+the sequence number, in this way, sever knows which data need to be retransmit. 
+
+In order to implement the above algorithm, the first thing I did was to create a class called Segment that has int seq and byte[] data.
+In server site, I created an object of Segment class that has all the information, and serializes the object into a byte[] stream.
+To implement this, a object output stream is create first then write the object. 
+
+Created a UDP socket an buffer in order to send data through UDP to client. We limit the window site to 50, It means the server
+site only can send 50 line of data then will have to wait for the sequence number sent from client. Server site also needs to 
+create an buffer for sequence number. If the received sequence is up to three times, then the server will retransmit the data 
+associate with the duplicated sequence number. Increase the window site so that the server can send other 50. 
+
+In the client site, the first thing to do is to deserialize the object that received from server site. Then the sequence number
+can be easily obtained. However, this sequence number is in byte[] data type. It is converted to string then from string to the
+integer. In the client site, it also needs to keep tracking the counter that how many time it has been retransmitted. 
+
